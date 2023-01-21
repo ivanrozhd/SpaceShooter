@@ -1,0 +1,27 @@
+cmake_minimum_required(VERSION 3.10 FATAL_ERROR)
+project(ECG VERSION 1.0 LANGUAGES C CXX DESCRIPTION "Echtzeit Computer Grafik")
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED True)
+if(NOT CMAKE_BUILD_TYPE)
+  set(CMAKE_BUILD_TYPE Release)
+endif()
+
+if(CMAKE_COMPILER_IS_GNUCXX)
+    message(STATUS "GCC detected, adding compile flags")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra")
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -Og")
+    set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3 -march=native")
+endif(CMAKE_COMPILER_IS_GNUCXX)
+if(WIN32)
+    add_definitions(-DNOMINMAX)
+    set(GLSLC glslc.exe) 
+else()
+    set(GLSLC glslc)
+endif(WIN32)
+
+
+add_subdirectory(TGA)
+add_subdirectory(Framework)
+add_subdirectory(heightmap_viewer)
+add_subdirectory(Assignments)
